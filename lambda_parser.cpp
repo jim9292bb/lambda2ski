@@ -52,13 +52,13 @@ struct Lambda_AST_node {
     Lambda_AST_node(
         std::variant<terminal_kind, non_terminal_kind> value,
         int rules_index) {
-        this->value = value;
+        this->symbol = value;
         this->rules_index = rules_index;
         this->children = {};
         this->property = {};
     }
     int rules_index;
-    std::variant<terminal_kind, non_terminal_kind> value;
+    std::variant<terminal_kind, non_terminal_kind> symbol;
     std::optional<std::shared_ptr<expr_pair>> property;
     std::list<std::shared_ptr<Lambda_AST_node>> children;
 };
@@ -192,9 +192,9 @@ std::shared_ptr<Lambda_expression> parse(const std::string& expression) {
     auto token = token_list.cbegin();
     while (!ast_node_stack.empty() and token != token_list.cend()) {
         auto current_node = ast_node_stack.top();
-        if (std::holds_alternative<non_terminal_kind>(current_node->value)) {
+        if (std::holds_alternative<non_terminal_kind>(current_node->symbol)) {
             int rules_index = ll1_parsing_table[static_cast<int>(
-                std::get<non_terminal_kind>(current_node->value))][static_cast<int>(token->kind)];
+                std::get<non_terminal_kind>(current_node->symbol))][static_cast<int>(token->kind)];
             if (rules_index != -1) {
                 ast_node_stack.pop();
                 current_node->rules_index = rules_index;
@@ -218,8 +218,8 @@ std::shared_ptr<Lambda_expression> parse(const std::string& expression) {
             } else {
                 throw "non_terminal syntax error";
             }
-        } else if (std::holds_alternative<terminal_kind>(current_node->value)) {
-            if (token->kind == std::get<terminal_kind>(current_node->value)) {
+        } else if (std::holds_alternative<terminal_kind>(current_node->symbol)) {
+            if (token->kind == std::get<terminal_kind>(current_node->symbol)) {
                 if (token->kind == terminal_kind::id) {
                     current_node->property = std::make_shared<expr_pair>(
                         std::make_shared<Lambda_variable>(expression.at(token->index)),
