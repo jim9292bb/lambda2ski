@@ -1,13 +1,32 @@
 # lambda2ski
 
-## using
+A tool to convert Lambda calculus to SKI combinators calculus.
 
-compile
+## Prerequisites
+
+- [Boost C++ Libraries](https://www.boost.org/) (Boost.Program_options)
+- g++ compiler
+
+## Compilation
+
 ```bash
-g++ -std=c++20 lambda.cpp test.cpp ski.cpp lambda2ski.cpp lambda_parser.cpp -o test
+g++ -std=c++20 lambda.cpp test.cpp ski.cpp lambda2ski.cpp lambda_parser.cpp -lboost_program_options -o test
 ```
 
-run
+## Usage
+
 ```bash
-./test
+./test --input-file input.txt --output-file output.txt
+```
+
+### Options
+
+- `--input-file, -i`: Input file with Lambda calculus (required)
+- `--output-file, -o`: Output file for SKI combinators calculus (required)
+- `--help, -h`: Show help message
+
+## Example
+
+```bash
+./test --input-file input.txt --output-file output.txt
 ```
