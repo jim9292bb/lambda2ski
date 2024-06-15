@@ -30,3 +30,7 @@ g++ -std=c++20 lambda.cpp test.cpp ski.cpp lambda2ski.cpp lambda_parser.cpp -lbo
 ```bash
 ./test --input-file input.txt --output-file output.txt
 ```
+
+## Parser Grammar
+
+For detailed information about the grammar and parsing rules used in this project, see the [lambda_parser.md](lambda_parser.md) file.

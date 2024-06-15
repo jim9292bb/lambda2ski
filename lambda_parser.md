@@ -1,14 +1,14 @@
 ## LL(1) grammar
 ```
 <expr> -> <term> <expr_tail>
-<expr> -> λ <var> . <expr>
+<expr> -> \ <var> . <expr>
 <expr_tail> -> <term> <expr_tail>
 <expr_tail> -> $
 
 <term> -> ( <expr2>
 <term> -> <var>
 <expr2> -> <term> <expr2_tail>
-<expr2> -> λ <var> . <expr2>
+<expr2> -> \ <var> . <expr2>
 <expr2_tail> -> <term> <expr2_tail>
 <expr2_tail> -> )
 
@@ -22,7 +22,7 @@
 ## first set
 ```
 <expr>:
-	{"(", <var>, "λ"}
+	{"(", <var>, "\"}
 
 <expr_tail>:
 	{"(", <var>, $}
@@ -31,7 +31,7 @@
 	{"(", <var>}
 
 <expr2>:
-	{"(", <var>, "λ"}
+	{"(", <var>, "\"}
 
 <expr2_tail>:
 	{"(", <var>, ")"}
@@ -56,7 +56,7 @@ def expr_merge(left, right):
 				<expr_tail>.pair)
 ]
 
-2  <expr> -> λ <var> . <expr>
+2  <expr> -> \ <var> . <expr>
 [
 <expr>.expr = Abs(<var>.id, <expr>.expr)
 ]
@@ -79,7 +79,7 @@ tuple($, $)
 6  <term> -> <var>
 [<term>.expr = <var>.id]
 
-7  <expr2> -> λ <var> . <expr2>#0
+7  <expr2> -> \ <var> . <expr2>#0
 [
 <expr2>.expr = Abs(<var>.id, <expr2>#0.expr)
 ]
