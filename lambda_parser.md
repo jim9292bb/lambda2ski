@@ -1,4 +1,4 @@
-LL(1) 文法
+## LL(1) grammar
 ```
 <expr> -> <term> <expr_tail>
 <expr> -> λ <var> . <expr>
@@ -19,7 +19,7 @@ LL(1) 文法
 <var> -> z
 ```
 
-first set
+## first set
 ```
 <expr>:
 	{"(", <var>, "λ"}
@@ -38,7 +38,7 @@ first set
 ```
 
 ---
-SDD
+## SDD
 ```python
 def expr_merge(left, right):
 	if right.first == $:
@@ -48,7 +48,6 @@ def expr_merge(left, right):
 				App(left, right.first),
 				right.second)
 ```
----
 ```
 1  <expr> -> <term> <expr_tail>
 [
@@ -106,3 +105,4 @@ tuple($, $)
 tuple($, $)
 ]
 11 <var> -> a | b | c | ... | z
+```
